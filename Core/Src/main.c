@@ -19,8 +19,12 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "adc.h"
+#include "comp.h"
+#include "dac.h"
 #include "dma.h"
 #include "opamp.h"
+#include "stm32g4xx_hal_comp.h"
+#include "stm32g4xx_hal_dac.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
@@ -48,7 +52,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+const uint32_t PHASE_CURRENT_MAX = 3000;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -99,12 +103,17 @@ int main(void)
   MX_OPAMP2_Init();
   MX_OPAMP3_Init();
   MX_TIM1_Init();
+  MX_COMP1_Init();
+  MX_DAC3_Init();
   /* USER CODE BEGIN 2 */
   HAL_OPAMP_Start(&hopamp1);
   HAL_OPAMP_Start(&hopamp2);
   HAL_OPAMP_Start(&hopamp3);
   HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED);
   HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED);
+  HAL_DAC_Start(&hdac3, DAC_CHANNEL_1);
+  HAL_DAC_SetValue(&hdac3, DAC_CHANNEL_1, DAC_ALIGN_12B_R, PHASE_CURRENT_MAX);
+  HAL_COMP_Start(&hcomp1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
