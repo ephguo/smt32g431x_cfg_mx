@@ -20,7 +20,8 @@
 #include "main.h"
 #include "adc.h"
 #include "dma.h"
-#include "stm32g4xx_hal_adc_ex.h"
+#include "opamp.h"
+#include "stm32g4xx_hal_opamp.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -94,7 +95,13 @@ int main(void)
   MX_USART3_UART_Init();
   MX_ADC1_Init();
   MX_ADC2_Init();
+  MX_OPAMP1_Init();
+  MX_OPAMP2_Init();
+  MX_OPAMP3_Init();
   /* USER CODE BEGIN 2 */
+  HAL_OPAMP_Start(&hopamp1);
+  HAL_OPAMP_Start(&hopamp2);
+  HAL_OPAMP_Start(&hopamp3);
   HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED);
   HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED);
   /* USER CODE END 2 */
