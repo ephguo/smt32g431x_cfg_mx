@@ -22,9 +22,8 @@
 #include "comp.h"
 #include "dac.h"
 #include "dma.h"
+#include "fdcan.h"
 #include "opamp.h"
-#include "stm32g4xx_hal_comp.h"
-#include "stm32g4xx_hal_dac.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
@@ -105,6 +104,7 @@ int main(void)
   MX_TIM1_Init();
   MX_COMP1_Init();
   MX_DAC3_Init();
+  MX_FDCAN1_Init();
   /* USER CODE BEGIN 2 */
   HAL_OPAMP_Start(&hopamp1);
   HAL_OPAMP_Start(&hopamp2);
