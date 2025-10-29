@@ -30,7 +30,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "svpwm_vf_test.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -120,6 +120,19 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    static uint32_t last_tick = 0;
+    if (HAL_GetTick() - last_tick >= 100) {
+      last_tick = HAL_GetTick();
+
+      HAL_ADC_Start(&hadc1);
+      HAL_ADC_Start(&hadc2);
+      HAL_ADC_PollForConversion(&hadc1, 10);
+      HAL_ADC_PollForConversion(&hadc2, 10);
+      // uint32_t adc1_value = HAL_ADC_GetValue(&hadc1);
+      uint32_t adc2_value = HAL_ADC_GetValue(&hadc2);
+
+      vf_sensors.vdc_sens = adc2_value * 0.02094726f;
+    }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
